@@ -1,0 +1,150 @@
+<body class="container">
+<div class="row mt-minus-8">
+  <h2 class="text-center">Project-Details</h2>
+  <div class="col-sm-12">
+    <form #prjectDetailsForm="ngForm" novalidate>
+      <button type="button" class="btn btn-danger" (click)="back()">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Back
+      </button>
+      <ng-container *ngIf="pageMode == 0">
+        <a class="btn btn-primary" [routerLink]="['/project-details',project.projectId,'edit']"><i
+          class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+      </ng-container>
+      <ng-container *ngIf="pageMode == 2">
+        <button type="button" [disabled]="!prjectDetailsForm.form.valid" class="btn btn-default"
+                (click)="updateProject()">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update
+        </button>
+      </ng-container>
+      <ng-container *ngIf="pageMode == 1">
+        <button type="button" class="btn btn-default" (click)="createProject()"
+                [disabled]="taxonomySelector.value == -1 || project.studyType == '-1' || !prjectDetailsForm.form.valid">
+          <i class="fa fa-plus" aria-hidden="true"></i>Add
+        </button>
+      </ng-container>
+      <hr/>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <label class="control-label"><i class="fa fa-sitemap" aria-hidden="true"></i>Taxonomy Id</label>
+            <select class="form-control" [(ngModel)]="taxonomy.taxonomyId" name="taxonomySelector"
+                    #taxonomySelector="ngModel" [disabled]="pageMode == 0"
+                    (change)="onTaxonomySelected(taxonomy.taxonomyId)">
+              <option [ngValue]=-1>Please Select..</option>
+              <option *ngFor="let item of taxonomyOptions" [ngValue]="item.taxonomyId">{{item.taxonomyId}} -
+                {{item.taxonomyCommonName}}
+              </option>
+            </select>
+            <div *ngIf="( taxonomySelector.touched)"
+                 class="required-alert">
+              <div [hidden]="taxonomy.taxonomyId != -1">
+                * Field is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ">
+            <label class="control-label"><i class="fa fa-tag" aria-hidden="true"></i>Taxonomy Common Name</label>
+            <input type="text" class="form-control" [(ngModel)]="taxonomy.taxonomyCommonName" name="taxonomyCommonName"
+                   #taxonomyCommonName="ngModel" disabled/>
+          </div>
+          <div class="col-md-4 ">
+            <label class="control-label"><i class="fa fa-tag" aria-hidden="true"></i>Taxonomy Scientific Name</label>
+            <input type="text" class="form-control" [(ngModel)]="taxonomy.taxonomyScientificName"
+                   name="taxonomyScientificName" #taxonomyScientificName="ngModel" disabled/>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <label class="control-label"><i class="fa fa-tasks" aria-hidden="true"></i>Project Id</label>
+            <input type="text" class="form-control" [(ngModel)]="project.projectId" name="projectId"
+                   #projectId="ngModel" required pattern="^[0-9A-Za-z]{1,15}$" [disabled]="pageMode != 1"/>
+            <div *ngIf="projectId.errors && ( projectId.touched)"
+                 class="required-alert">
+              <div [hidden]="!projectId.errors.required">
+                * Field is required.
+              </div>
+              <div [hidden]="!projectId.errors.pattern">
+                * Field must have numbers and letters only. [1-15]
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="control-label"><i class="fa fa-text-width" aria-hidden="true"></i>Title</label>
+            <input type="text" class="form-control" [(ngModel)]="project.title" name="title" #title="ngModel" required
+                   pattern="^[0-9A-Za-z\s]{1,50}$" [disabled]="pageMode == 0"/>
+            <div *ngIf="title.errors && ( title.touched)"
+                 class="required-alert">
+              <div [hidden]="!title.errors.required">
+                * Field is required.
+              </div>
+              <div [hidden]="!title.errors.pattern">
+                * Field must have letters, numbers and space only. [1-50]
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="control-label"><i class="fa fa-search" aria-hidden="true"></i>Source Type</label>
+            <input type="text" class="form-control" [(ngModel)]="project.sourceType" name="sourceType"
+                   #sourceType="ngModel" required [disabled]="pageMode == 0" pattern="^[0-9A-Za-z\s]{1,50}$"/>
+            <div *ngIf="sourceType.errors && ( sourceType.touched)"
+                 class="required-alert">
+              <div [hidden]="!sourceType.errors.required">
+                * Field is required.
+              </div>
+              <div [hidden]="!sourceType.errors.pattern">
+                * Field must have letters, numbers and space only. [1-50]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <label class="control-label"><i class="fa fa-book" aria-hidden="true"></i>Study Type</label>
+            <select class="form-control" [(ngModel)]="project.studyType" name="studyTypeSelector"
+                    #studyTypeSelector="ngModel" [disabled]="pageMode == 0">
+              <option [value]="-1">Please Select..</option>
+              <option *ngFor="let item of studyTypes" [value]="item">{{item}}</option>
+            </select>
+            <div *ngIf="( studyTypeSelector.touched)"
+                 class="required-alert">
+              <div [hidden]="project.studyType != '-1' ">
+                * Field is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ">
+            <label class="control-label"><i class="fa fa-tag" aria-hidden="true"></i>Eva Center Name</label>
+            <input type="text" class="form-control" [(ngModel)]="project.evaCenterName" name="evaCenterName"
+                   #evaCenterName="ngModel" [disabled]="pageMode == 0"/>
+          </div>
+          <div class="col-md-4 ">
+            <label class="control-label"><i class="fa fa-tag" aria-hidden="true"></i>Center Name</label>
+            <input type="text" class="form-control" [(ngModel)]="project.centerName" name="centerName"
+                   #centerName="ngModel" [disabled]="pageMode == 0"/>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            &nbsp;
+          </div>
+          <div class="col-md-6  text-center">
+            <label class="control-label"><i class="fa fa-paragraph" aria-hidden="true"></i>Description</label>
+            <textarea class="form-control" rows="5" [(ngModel)]="project.description"
+                      name="description" [disabled]="pageMode == 0" #description="ngModel"></textarea>
+          </div>
+          <div class="col-md-3">
+            &nbsp;
+          </div>
+        </div>
+      </div>
+      <hr/>
+    </form>
+  </div>
+</div>
+</body>

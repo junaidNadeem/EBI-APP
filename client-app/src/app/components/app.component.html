@@ -1,0 +1,20 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <ng2-slim-loading-bar [height]="'4px'"></ng2-slim-loading-bar>
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <a class="navbar-brand mt-minus-8"  [routerLink]="['/']" [style.color]="activeTab == 1 ? 'white' : null"
+         (click)="activeTab = 1">
+        <i class="fa fa-sitemap fa-2x" aria-hidden="true" title="Home"></i><br>TAXONOMY
+      </a>
+      <a class="navbar-brand mt-minus-8" [routerLink]="['/project-list']" [style.color]="activeTab == 2 ? 'white' : null"
+         (click)="activeTab = 2">
+        <i class="fa fa-tasks fa-2x" aria-hidden="true" title="Projects"></i><br>PROJECT
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <h1 class="text-center">EBI Genomics Data</h1>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</nav>
+<router-outlet></router-outlet>
