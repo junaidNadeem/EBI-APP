@@ -52,6 +52,7 @@ export class TaxonomyListComponent implements OnInit {
     this.loadTaxonomies();
   }
 
+  //fetch taxonomy-list
   loadTaxonomies() {
     this.loadingBarService.start();
     this.taxonomyService.getAllTaxonomies(this.currentPage, this.itemsPerPage)
@@ -67,7 +68,7 @@ export class TaxonomyListComponent implements OnInit {
         });
   }
 
-
+  //remove a taxonomy
   removeTaxonomy(taxonomy: Taxonomy) {
     this.notificationService.openConfirmationDialog('Are you sure you want to delete this taxonomy and projects linked to it?',
       () => {
@@ -85,6 +86,7 @@ export class TaxonomyListComponent implements OnInit {
       });
   }
 
+  //update a taxonomy
   updateTaxonomy() {
     this.loadingBarService.start();
     this.taxonomyService.updateTaxonomy(this.selectedTaxonomy)
@@ -100,6 +102,7 @@ export class TaxonomyListComponent implements OnInit {
         });
   }
 
+  //create a taxonomy
   createTaxonomy() {
     this.loadingBarService.start();
     this.taxonomyService.createTaxonomy(this.selectedTaxonomy)
@@ -115,6 +118,7 @@ export class TaxonomyListComponent implements OnInit {
         });
   }
 
+  //modal submit
   submitTaxonomy() {
     if (this.isEditor)
       this.updateTaxonomy();
@@ -122,6 +126,7 @@ export class TaxonomyListComponent implements OnInit {
       this.createTaxonomy();
   }
 
+  //open taxonomy creater modal
   viewTaxonomyCreator() {
     this.selectedTaxonomyId = -1;
     this.isEditor = false;
@@ -129,10 +134,13 @@ export class TaxonomyListComponent implements OnInit {
     this.childModal.show();
   }
 
+  //open taxonomy editor modal
   viewTaxonomyEditor(id: number) {
     this.selectedTaxonomyId = id;
     this.isEditor = true;
-    this.selectedTaxonomy = this.taxonomies.find(obj => obj.taxonomyId == this.selectedTaxonomyId);
+    let taxonomyObj = this.taxonomies.find(obj => obj.taxonomyId == this.selectedTaxonomyId);
+    if (taxonomyObj)
+      this.selectedTaxonomy = new Taxonomy(taxonomyObj.taxonomyId, taxonomyObj.taxonomyCommonName, taxonomyObj.taxonomyScientificName);
     this.childModal.show();
   }
 

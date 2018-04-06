@@ -1,11 +1,12 @@
 package com.ebi.serverapp.service;
 
-import java.util.List;
+import java.util.Map;
 
 import com.ebi.serverapp.entity.Taxonomy;;
 
 public interface ITaxonomyService {
-	List<Taxonomy> getAllTaxonomies(int currentPage, int itemsPerPage);
+	// get map of paginated taxonomy-list and total count
+	Map<String, Object> getAllTaxonomies(int currentPage, int itemsPerPage);
 
 	Taxonomy getTaxonomyById(int taxonomyId);
 

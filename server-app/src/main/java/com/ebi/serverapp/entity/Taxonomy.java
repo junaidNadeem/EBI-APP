@@ -1,16 +1,9 @@
 package com.ebi.serverapp.entity;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +17,6 @@ public class Taxonomy implements Serializable {
 	private String taxonomyCommonName;
 	@Column(name = "taxonomy_scientific_name")
 	private String taxonomyScientificName;
-//	@OneToMany(mappedBy = "taxonomy")
-//	private List<Project> project;
 
 	public int getTaxonomyId() {
 		return taxonomyId;

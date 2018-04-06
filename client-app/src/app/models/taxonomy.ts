@@ -13,6 +13,7 @@ export class Taxonomy {
   constructor(public _taxonomyId: number = -1, public _taxonomyCommonName: string = '', public _taxonomyScientificName: string = '') {
   }
 
+  //map class object to JSON
   toJSON(): TaxonomySerialized {
     return {
       taxonomyId: this._taxonomyId,
@@ -21,12 +22,14 @@ export class Taxonomy {
     };
   }
 
+  //map JSON to class object
   fromJSON(obj: TaxonomySerialized) {
     this._taxonomyId = obj.taxonomyId
     this._taxonomyCommonName = obj.taxonomyCommonName;
     this._taxonomyScientificName = obj.taxonomyScientificName;
   }
 
+  //parse response json to get class object or list of objects
   static fillFromJSON(json: any, isListExpected: boolean) {
     let arrTaxonomy: any;
     if (isListExpected) {
@@ -46,6 +49,8 @@ export class Taxonomy {
     }
     return arrTaxonomy;
   }
+
+  //  getters/setters //
 
   static get count(): number {
     return this._count;

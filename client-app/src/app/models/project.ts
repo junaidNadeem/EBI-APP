@@ -20,6 +20,7 @@ export class Project {
               public _centerName: string = '', public _taxonomyId: number = 0) {
   }
 
+  //map class object to JSON
   toJSON(): ProjectSerialized {
     return {
       projectId: this._projectId,
@@ -33,6 +34,7 @@ export class Project {
     };
   }
 
+  //map JSON to class object
   fromJSON(obj: ProjectSerialized) {
     this._projectId = obj.projectId
     this._title = obj.title;
@@ -44,6 +46,7 @@ export class Project {
     this._taxonomyId = obj.taxonomyId;
   }
 
+  //parse response json to get class object or list of objects
   static fillFromJSON(json: any, isListExpected: boolean) {
     let arrProject: any;
     if (isListExpected) {
@@ -62,6 +65,8 @@ export class Project {
       Project.count = json[Project._COUNT_KEY];
     return arrProject;
   }
+
+  //  getters/setters //
 
   public get projectId(): string {
     return this._projectId;

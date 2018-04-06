@@ -1,13 +1,18 @@
 package com.ebi.serverapp.service;
 
-import java.util.List;
+import java.util.Map;
 
 import com.ebi.serverapp.entity.Project;;
 
 public interface IProjectService {
-	List<Project> getAllProjects(String studyType, int taxonomyId, int currentPage, int itemsPerPage);
+	// get paginated result with/without filter and total count
+	Map<String, Object> getAllProjects(String studyType, int taxonomyId, int currentPage, int itemsPerPage);
 
-	Project getProjectById(String projectId);
+	// get all study types
+	Map<String, Object> getAllStudyTypes();
+
+	// get project with its taxonomy
+	Map<String, Object> getTaxonomyProjectById(String projectId);
 
 	boolean createProject(Project project);
 
@@ -17,5 +22,4 @@ public interface IProjectService {
 
 	long getTotalCount(String studyType, int taxonomyId);
 
-	List<String> getAllStudyTypes();
 }

@@ -21,6 +21,7 @@ public class TaxonomyDAO implements ITaxonomyDAO {
 		return entityManager.find(Taxonomy.class, taxonomyId);
 	}
 
+	// get List of paginated taxonomy-list
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Taxonomy> getAllTaxonomies(int currentPage, int itemsPerPage) {

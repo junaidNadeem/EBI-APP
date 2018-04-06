@@ -1,6 +1,8 @@
 package com.ebi.serverapp.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,15 @@ public class TaxonomyService implements ITaxonomyService {
 		return obj;
 	}
 
+	// get map of paginated taxonomy-list and total count
 	@Override
-	public List<Taxonomy> getAllTaxonomies(int currentPage, int itemsPerPage) {
-		return taxonomyDAO.getAllTaxonomies(currentPage, itemsPerPage);
+	public Map<String, Object> getAllTaxonomies(int currentPage, int itemsPerPage) {
+		List<Taxonomy> list = taxonomyDAO.getAllTaxonomies(currentPage, itemsPerPage);
+		long totalCount = taxonomyDAO.getTotalCount();
+		Map<String, Object> taxonomyMap = new HashMap<String, Object>();
+		taxonomyMap.put("totalCount", totalCount);
+		taxonomyMap.put("taxonomy", list);
+		return taxonomyMap;
 	}
 
 	@Override

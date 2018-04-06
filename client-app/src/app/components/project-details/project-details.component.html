@@ -7,8 +7,9 @@
         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Back
       </button>
       <ng-container *ngIf="pageMode == 0">
-        <a class="btn btn-primary" [routerLink]="['/project-details',project.projectId,'edit']"><i
-          class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+        <a class="btn btn-primary" [routerLink]="['/project-details',project.projectId,'edit']">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit
+        </a>
       </ng-container>
       <ng-container *ngIf="pageMode == 2">
         <button type="button" [disabled]="!prjectDetailsForm.form.valid" class="btn btn-default"
@@ -131,7 +132,6 @@
       <div class="form-group">
         <div class="row">
           <div class="col-md-3">
-            &nbsp;
           </div>
           <div class="col-md-6  text-center">
             <label class="control-label"><i class="fa fa-paragraph" aria-hidden="true"></i>Description</label>
@@ -139,7 +139,6 @@
                       name="description" [disabled]="pageMode == 0" #description="ngModel"></textarea>
           </div>
           <div class="col-md-3">
-            &nbsp;
           </div>
         </div>
       </div>

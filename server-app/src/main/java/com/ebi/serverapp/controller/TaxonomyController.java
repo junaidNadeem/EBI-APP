@@ -1,9 +1,6 @@
 package com.ebi.serverapp.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.ebi.serverapp.entity.Taxonomy;
 import com.ebi.serverapp.service.ITaxonomyService;
 
@@ -29,21 +25,20 @@ public class TaxonomyController {
 	@Autowired
 	private ITaxonomyService taxonomyService;
 
+	// get taxonomy with ID
 	@GetMapping("taxonomy")
 	public ResponseEntity<Taxonomy> getTaxonomyById(@RequestParam("id") String id) {
 		Taxonomy taxonomy = taxonomyService.getTaxonomyById(Integer.parseInt(id));
 		return new ResponseEntity<Taxonomy>(taxonomy, HttpStatus.OK);
 	}
 
+	// get map of paginated taxonomy-list and total count
 	@GetMapping("all-taxonomies")
 	public ResponseEntity<Map<String, Object>> getAllTaxonomies(@RequestParam("currentPage") String currentPage,
 			@RequestParam("itemsPerPage") String itemsPerPage) {
-		List<Taxonomy> list = taxonomyService.getAllTaxonomies(Integer.parseInt(currentPage),
+		Map<String, Object> taxonomyMap = taxonomyService.getAllTaxonomies(Integer.parseInt(currentPage),
 				Integer.parseInt(itemsPerPage));
-		Map<String, Object> jsonResponse = new HashMap<String, Object>();
-		jsonResponse.put("totalCount", taxonomyService.getTotalCount());
-		jsonResponse.put("taxonomy", list);
-		return (new ResponseEntity<Map<String, Object>>(jsonResponse, HttpStatus.OK));
+		return (new ResponseEntity<Map<String, Object>>(taxonomyMap, HttpStatus.OK));
 	}
 
 	@PostMapping("taxonomy")

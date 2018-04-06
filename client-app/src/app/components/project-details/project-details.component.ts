@@ -34,12 +34,14 @@ export class ProjectDetailsComponent implements OnInit {
       this.pageMode = 0;
     else
       this.pageMode = 1;
-    if (this.pageMode != 1)
+
+    if (this.pageMode != 1) //  show details on edit/view mode
       this.loadProjectDetails();
     this.loadTaxonomies();
     this.loadStudyTypes();
   }
 
+  //  fetch study types
   loadStudyTypes() {
     this.loadingBarService.start();
     this.projectService.getAllStudyTypes()
@@ -55,6 +57,7 @@ export class ProjectDetailsComponent implements OnInit {
         });
   }
 
+  //  fetch taxonomies
   loadTaxonomies() {
     this.loadingBarService.start();
     this.taxonomyService.getAllTaxonomies(1, 10000)
@@ -69,6 +72,7 @@ export class ProjectDetailsComponent implements OnInit {
         });
   }
 
+  //  fetch project details
   loadProjectDetails() {
     this.loadingBarService.start();
     this.projectService.getProjectById(this.id)
@@ -83,6 +87,7 @@ export class ProjectDetailsComponent implements OnInit {
         });
   }
 
+  //  update project
   updateProject() {
     this.loadingBarService.start();
     this.project.taxonomyId = this.taxonomy.taxonomyId;
@@ -97,6 +102,7 @@ export class ProjectDetailsComponent implements OnInit {
         });
   }
 
+  //  create project
   createProject() {
     this.loadingBarService.start();
     this.project.taxonomyId = this.taxonomy.taxonomyId;
@@ -112,6 +118,7 @@ export class ProjectDetailsComponent implements OnInit {
         });
   }
 
+  //  taxonomy dropdown selection => update common name, scientific name
   onTaxonomySelected(tId: number) {
     let obj = this.taxonomyOptions.find(x => x.taxonomyId == tId);
     if (obj)

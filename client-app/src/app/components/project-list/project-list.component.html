@@ -15,15 +15,14 @@
               </td>
               <td class="col-sm-8">
                 <select class="form-control p-2" id="taxonomySelector" name="taxonomySelector"
-                        [(ngModel)]="this.taxonomyIdSelected"
-                        #taxonomySelector="ngModel" (change)="onTaxonomySelected(taxonomySelector.value)">
+                        [(ngModel)]="this.taxonomyIdSelected" #taxonomySelector="ngModel"
+                        (change)="onTaxonomySelected(taxonomySelector.value)">
                   <option [value]="-1">All</option>
                   <option *ngFor="let item of taxonomies;" [value]="item.taxonomyId">{{item.taxonomyId}} -
                     {{item.taxonomyCommonName}}
                   </option>
                 </select>
               </td>
-
             </tr>
           </table>
         </td>
@@ -38,11 +37,10 @@
               <td class="col-sm-4">
                 <h5><strong>Study Type:&nbsp;</strong></h5>
               </td>
-
               <td class="col-sm-8">
                 <select class="form-control p-2" id="studyTypeSelector" name="studyTypeSelector"
-                        [(ngModel)]="this.studyTypeSelected"
-                        #studyTypeSelector="ngModel" (change)="onStudyTypeSelected(studyTypeSelector.value)">
+                        [(ngModel)]="this.studyTypeSelected" #studyTypeSelector="ngModel"
+                        (change)="onStudyTypeSelected(studyTypeSelector.value)">
                   <option [value]="-1">All</option>
                   <option *ngFor="let item of studyTypes;" [value]="item"> {{item}}
                   </option>
@@ -51,7 +49,6 @@
             </tr>
           </table>
         </td>
-
       </tr>
     </table>
   </div>
@@ -59,11 +56,10 @@
 <br>
 <div class="row">
   <div class="col-sm-12" [@flyInOut]="'in'">
-    <table style="table-layout: fixed; width: 100%; height: 315px; overflow-y:scroll; display:block;" name="myTable" id="myTable" #myTable
-           class="table table-striped table-bordered" border="0" cellspacing="0" cellpadding="0">
+    <table class="table table-striped table-bordered table-fixed" border="0" cellspacing="0" cellpadding="0">
       <thead class="table-head">
-      <tr class="row" >
-        <th class="col-sm-2 text-center" ><i class="fa fa-tasks" aria-hidden="true"></i>Project Id</th>
+      <tr class="row">
+        <th class="col-sm-2 text-center"><i class="fa fa-tasks" aria-hidden="true"></i>Project Id</th>
         <th class="col-sm-2 text-center"><i class="fa fa-sitemap" aria-hidden="true"></i>Taxonomy Id</th>
         <th class="col-sm-3 text-center"><i class="fa fa-text-width" aria-hidden="true"></i>Title</th>
         <th class="col-sm-2 text-center"><i class="fa fa-search" aria-hidden="true"></i>Source Type</th>
@@ -101,8 +97,7 @@
       <tr class="row">
         <td class="col-md-3">
           Page Size:
-          <select (change)="onPageSizeChanged(paginationSelector.value)"
-                  style="-webkit-appearance: menulist !important;" id="paginationSelector"
+          <select (change)="onPageSizeChanged(paginationSelector.value)" id="paginationSelector"
                   name="paginationSelector" [(ngModel)]="this.itemsPerPage" #paginationSelector="ngModel">
             <option [ngValue]=25>25</option>
             <option [ngValue]=50>50</option>
@@ -126,106 +121,6 @@
         </td>
       </tr>
     </table>
-  </div>
-</div>
-<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-lg" *ngIf="selectedScheduleLoaded">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" (click)="hideChildModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4>{{projectDetails.title}} details</h4>
-      </div>
-      <div class="modal-body">
-        <form ngNoForm method="post">
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-4">
-                <label class="control-label"><i class="fa fa-user"
-                                                aria-hidden="true"></i>Creator</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.creator" disabled/>
-              </div>
-
-              <div class="col-md-4">
-                <label class="control-label"><i class="fa fa-text-width"
-                                                aria-hidden="true"></i>Title</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.title" disabled/>
-              </div>
-
-              <div class="col-md-4">
-                <label class="control-label"><i class="fa fa-paragraph" aria-hidden="true"></i>Description</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.description"
-                       disabled/>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="row">
-              <div class="col-xs-6">
-                <label class="control-label"><i class="fa fa-calendar-o" aria-hidden="true"></i>Time
-                  Start</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.timeStart"
-                       disabled/>
-              </div>
-
-              <div class="col-xs-6">
-                <label class="control-label"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>Time
-                  End</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.timeEnd" disabled/>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-4">
-                <label class="control-label"><i class="fa fa-map-marker" aria-hidden="true"></i>Location</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.location"
-                       disabled/>
-              </div>
-
-              <div class="col-md-4 selectContainer">
-                <label class="control-label"><i class="fa fa-spinner"
-                                                aria-hidden="true"></i>Status</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.status" disabled/>
-              </div>
-              <div class="col-md-4 selectContainer">
-                <label class="control-label"><i class="fa fa-tag" aria-hidden="true"></i>Type</label>
-                <input type="text" class="form-control" [(ngModel)]="projectDetails.type" disabled/>
-              </div>
-            </div>
-          </div>
-          <hr/>
-          <div class="panel panel-info">
-
-            <div class="panel-heading">Attendes</div>
-
-            <table class="table table-hover">
-              <thead>
-              <tr>
-                <th></th>
-                <th><i class="fa fa-user" aria-hidden="true"></i>Name</th>
-                <th><i class="fa fa-linkedin-square" aria-hidden="true"></i>Profession</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let attendee of projectDetails.attendees">
-                <td [style.valign]="'middle'">
-                  <img class="img-thumbnail img-small" src="{{apiHost}}images/{{attendee.avatar}}"
-                       alt="attendee.name"/>
-                </td>
-                <td [style.valign]="'middle'">{{attendee.name}}</td>
-                <td [style.valign]="'middle'">{{attendee.profession}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
-      </div>
-    </div>
   </div>
 </div>
 </body>

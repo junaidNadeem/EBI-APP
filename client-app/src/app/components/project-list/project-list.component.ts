@@ -64,6 +64,7 @@ export class ProjectListComponent implements OnInit {
     this.loadProjects(this.studyTypeSelected, this.taxonomyIdSelected, this.currentPage, this.itemsPerPage);
   }
 
+  //fetch study-types
   loadStudyTypes() {
     this.loadingBarService.start();
     this.projectService.getAllStudyTypes()
@@ -79,6 +80,7 @@ export class ProjectListComponent implements OnInit {
         });
   }
 
+  //fetch taxonomy-list
   loadTaxonomies() {
     this.loadingBarService.start();
     this.taxonomyService.getAllTaxonomies(1, 10000)
@@ -93,6 +95,7 @@ export class ProjectListComponent implements OnInit {
         });
   }
 
+  //fetch projects
   loadProjects(studyType: string, taxonomyId: string, currentPage: number, itemsPerPage: number) {
     this.loadingBarService.start();
     this.projectService.getAllProjects(studyType, taxonomyId, currentPage, itemsPerPage)
@@ -108,6 +111,7 @@ export class ProjectListComponent implements OnInit {
         });
   }
 
+  //remove a project
   removeProject(project: Project) {
     this.notificationService.openConfirmationDialog('Are you sure you want to delete this taxonomy and projects linked to it?',
       () => {
@@ -125,10 +129,12 @@ export class ProjectListComponent implements OnInit {
       });
   }
 
+  //fetch projects by taxonomyID
   onTaxonomySelected(taxonomyId: string) {
     this.loadProjects(this.studyTypeSelected, taxonomyId, this.currentPage, this.itemsPerPage);
   }
 
+  //fetch projects by study-type
   onStudyTypeSelected(studyType: string) {
     this.loadProjects(studyType, this.taxonomyIdSelected, this.currentPage, this.itemsPerPage);
   }

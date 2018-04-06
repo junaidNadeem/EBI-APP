@@ -1,16 +1,12 @@
 package com.ebi.serverapp.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.ebi.serverapp.entity.Project;
 
 @Transactional
@@ -24,31 +20,14 @@ public class ProjectDAO implements IProjectDAO {
 		return entityManager.find(Project.class, projectId);
 	}
 
-	// @SuppressWarnings("unchecked")
-	// @Override
-	// public List<Project> getProjectDetailsById(String projectId) {
-	// String queryStr = "FROM Project p LEFT OUTER JOIN p.taxonomy t WHERE
-	// p.projectId = ?";
-	// return entityManager.createQuery(queryStr).setParameter(1,
-	// projectId).getResultList();
-	//
-	// }
-
+	// get total count and paginated result with/without filter
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Project> getAllProjects(String studyType, int taxonomyId, int currentPage, int itemsPerPage) {
-		String studyTypeFilter = "1=1", taxonomyIdFilter = "1=1", queryFilter = "";
-		Map<String, Object> params = new HashMap<String, Object>();
-		if (taxonomyId != -1) {
-			taxonomyIdFilter = "project.taxonomyId = :taxonomyId";
-			params.put("taxonomyId", taxonomyId);
-		}
-		if (!studyType.equals("-1")) {
-			studyTypeFilter = "project.studyType = :studyType";
-			params.put("studyType", studyType);
-		}
-		queryFilter = taxonomyIdFilter + " AND " + studyTypeFilter;
-		final String jpql = "FROM Project project WHERE " + queryFilter + " ORDER BY project.title ASC";
+	public List<Project> getAllProjects(String queryFilter, Map<String, Object> params, int currentPage,
+			int itemsPerPage) {
+		String tableAlias = ProjectDAO.getAlias();
+		final String jpql = "FROM Project " + tableAlias + " WHERE " + queryFilter + " ORDER BY " + tableAlias
+				+ ".title ASC";
 		Query query = entityManager.createQuery(jpql);
 		for (Map.Entry<String, Object> value : params.entrySet()) {
 			query.setParameter(value.getKey(), value.getValue());
@@ -88,19 +67,9 @@ public class ProjectDAO implements IProjectDAO {
 	}
 
 	@Override
-	public long getTotalCount(String studyType, int taxonomyId) {
-		String studyTypeFilter = "1=1", taxonomyIdFilter = "1=1", queryFilter = "";
-		Map<String, Object> params = new HashMap<String, Object>();
-		if (taxonomyId != -1) {
-			taxonomyIdFilter = "project.taxonomyId = :taxonomyId";
-			params.put("taxonomyId", taxonomyId);
-		}
-		if (!studyType.equals("-1")) {
-			studyTypeFilter = "project.studyType = :studyType";
-			params.put("studyType", studyType);
-		}
-		queryFilter = taxonomyIdFilter + " AND " + studyTypeFilter;
-		final String jpql = "SELECT count(*) FROM Project project WHERE " + queryFilter ;
+	public long getTotalCount(String queryFilter, Map<String, Object> params) {
+		String tableAlias = ProjectDAO.getAlias();
+		final String jpql = "SELECT count(*) FROM Project " + tableAlias + " WHERE " + queryFilter;
 		Query query = entityManager.createQuery(jpql);
 		for (Map.Entry<String, Object> value : params.entrySet()) {
 			query.setParameter(value.getKey(), value.getValue());
@@ -113,5 +82,9 @@ public class ProjectDAO implements IProjectDAO {
 	public List<String> getAllStudyTypes() {
 		String queryStr = "SELECT DISTINCT(p.studyType) from Project as p";
 		return entityManager.createQuery(queryStr).getResultList();
+	}
+
+	public static String getAlias() {
+		return ProjectDAO.ALIAS;
 	}
 }
