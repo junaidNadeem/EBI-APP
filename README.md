@@ -1,4 +1,4 @@
-# EBI-GENOMICS-APP
+# EBI-Genomics-Data
 
 NOTE:
 Please follow below instrcutions to setup and run this project.
@@ -8,9 +8,7 @@ Please follow below instrcutions to setup and run this project.
 	2. Java spring boot back-end.
 	3. Angular 2 front-end.
 
-#--------------------------------------
-#////////// DATABASE SECTION //////////
-#--------------------------------------
+# DATABASE SECTION
 
 -> Pre-Requisites:
 	1. SQL Server
@@ -24,9 +22,7 @@ Please follow below instrcutions to setup and run this project.
 
 -> Taxonomies and Projects will be created under [ebi-database].
 
-#--------------------------------------
-#////////// BACK-END SECTION //////////
-#--------------------------------------
+# BACK-END SECTION
 
 -> Pre-Requisites:
 	1. Java 8 
@@ -48,9 +44,7 @@ Please follow below instrcutions to setup and run this project.
 		-> Go to step 2.
 	4. Application will listen on port 8080.
 
-#---------------------------------------
-#////////// FRONT-END SECTION //////////
-#---------------------------------------
+# FRONT-END SECTION
 
 -> Pre-Requisites:
 	1. @angular/cli: 1.2.4
@@ -68,9 +62,7 @@ Please follow below instrcutions to setup and run this project.
 	2. Run command: ng serve
 	3. Application will listen on port 4200.
 
-#---------------------------------------
-#////////// RUN-APPLICATION ////////////
-#---------------------------------------
+# RUN-APPLICATION
 
 1- Open browser and visit:
 	-> http://localhost:4200
@@ -80,6 +72,4 @@ Please follow below instrcutions to setup and run this project.
 	-> Project List Page: Project List, CRUD opertions on Project, filter (By Taxonomy ID & Study Type) and pagination.
 	-> Project Details Page: View, add, edit project.
 	
-#---------------------------------------
-#///////////////// END /////////////////
-#---------------------------------------
+# END
