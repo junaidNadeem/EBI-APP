@@ -20,15 +20,14 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../bower_components/font-awesome/css/font-awesome.min.css",
-        "../bower_components/alertify.js/themes/alertify.core.css",
-        "../bower_components/alertify.js/themes/alertify.bootstrap.css",
+        "../node_modules/alertify.js/dist/css/alertify.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
         "./assets/css/styles.css"
       ],
       "scripts": [
-        "../bower_components/jquery/dist/jquery.min.js",
+        "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../bower_components/alertify.js/lib/alertify.min.js"
+        "../node_modules/alertify.js/dist/js/alertify.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -8,7 +8,7 @@ import {PaginationModule} from 'ngx-bootstrap';
 import {DatepickerModule} from 'ngx-bootstrap';
 import {ModalModule} from 'ngx-bootstrap';
 import {ProgressbarModule} from 'ngx-bootstrap';
-import {SlimLoadingBarService, SlimLoadingBarComponent} from 'ng2-slim-loading-bar';
+import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
 import {TimepickerModule} from 'ngx-bootstrap';
 
 import {AppComponent}   from './app.component';
@@ -26,6 +26,7 @@ import {AppConfig} from "./app.config";
 @NgModule({
   imports: [
     BrowserModule,
+    SlimLoadingBarModule.forRoot(),
     BrowserAnimationsModule,
     DatepickerModule.forRoot(),
     FormsModule,
@@ -40,13 +41,11 @@ import {AppConfig} from "./app.config";
     AppComponent,
     ProjectDetailsComponent,
     ProjectListComponent,
-    SlimLoadingBarComponent,
     TaxonomyListComponent,
   ],
   providers: [
     AppConfig,
     NotificationService,
-    SlimLoadingBarService,
     ProjectService,
     TaxonomyService,
     ActiveTabService,
